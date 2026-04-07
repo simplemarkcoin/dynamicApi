@@ -1,0 +1,5 @@
+{
+  "name": "Dynamic Admin Dashboard",
+  "description": "A low-code platform to create dynamic data structures, auto-generate CRUD APIs, and integrate with external services.",
+  "requestFramePermissions": []
+}

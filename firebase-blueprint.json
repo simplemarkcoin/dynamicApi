@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "Collection": {
+      "title": "Collection",
+      "description": "Definition of a data collection (table)",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the collection" },
+        "slug": { "type": "string", "description": "URL-friendly slug" },
+        "fields": { "type": "array", "description": "List of field definitions" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" }
+      },
+      "required": ["name", "slug", "fields"]
+    },
+    "Record": {
+      "title": "Record",
+      "description": "A single entry in a collection",
+      "type": "object",
+      "properties": {
+        "collectionId": { "type": "string" },
+        "data": { "type": "object" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["collectionId", "data"]
+    },
+    "ApiConfig": {
+      "title": "API Config",
+      "description": "External API integration settings",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "method": { "type": "string", "enum": ["GET", "POST", "PUT", "DELETE"] },
+        "headers": { "type": "object" },
+        "mapping": { "type": "object" },
+        "trigger": { "type": "string", "enum": ["onCreate", "onUpdate"] },
+        "collectionId": { "type": "string" }
+      },
+      "required": ["name", "url", "method", "collectionId"]
+    },
+    "ApiKey": {
+      "title": "API Key",
+      "description": "Access keys for external API access",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "key": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "createdBy": { "type": "string" }
+      },
+      "required": ["name", "key"]
+    },
+    "ApiLog": {
+      "title": "API Log",
+      "description": "Logs of external API calls",
+      "type": "object",
+      "properties": {
+        "apiConfigId": { "type": "string" },
+        "status": { "type": "number" },
+        "request": { "type": "object" },
+        "response": { "type": "object" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/collections": { "schema": "Collection", "description": "Collection definitions" },
+    "/records": { "schema": "Record", "description": "Dynamic records" },
+    "/apiConfigs": { "schema": "ApiConfig", "description": "External API configurations" },
+    "/apiKeys": { "schema": "ApiKey", "description": "Access keys for external API access" },
+    "/apiLogs": { "schema": "ApiLog", "description": "Logs for API calls" }
+  }
+}
